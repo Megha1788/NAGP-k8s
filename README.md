@@ -1,4 +1,4 @@
-\# Hone Assignment – Kubernetes Multi-Tier Application
+\# Nagp Assignment – Kubernetes Multi-Tier Application
 
 &#x20;
 
