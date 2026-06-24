@@ -32,7 +32,7 @@ spec:
  
       - name: api
  
-        image: meghaagarwal2324/nagp-api:v1
+        image: meghaagarwal2324/nagp-api:v2
  
         ports:
         - containerPort: 8080
