@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+ 
+kind: Deployment
+ 
+metadata:
+  name: service-api
+  namespace: nagp
+ 
+spec:
+ 
+  replicas: 4
+  
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+ 
+  selector:
+    matchLabels:
+      app: api
+ 
+  template:
+ 
+    metadata:
+      labels:
+        app: api
+ 
+    spec:
+ 
+      containers:
+ 
+      - name: api
+ 
+        image: meghaagarwal2324/nagp-api:v1
+ 
+        ports:
+        - containerPort: 8080
+ 
+        env:
+ 
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: DB_HOST
+ 
+
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-config
+              key: POSTGRES_DB
+ 
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: POSTGRES_USER
+ 
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: POSTGRES_PASSWORD
+ 
+        resources:
+ 
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+ 
+          limits:
+            cpu: "150m"
+            memory: "128Mi"
+
