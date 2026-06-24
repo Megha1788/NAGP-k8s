@@ -112,19 +112,19 @@ Architecture:
 
 Internet
 
-&#x20;  ↓
+  ↓
 
 Ingress
 
-&#x20;  ↓
+  ↓
 
 Service API (Deployment)
 
-&#x20;  ↓
+  ↓
 
 PostgreSQL (StatefulSet)
 
-&#x20;  ↓
+ ↓
 
 Persistent Volume
 
