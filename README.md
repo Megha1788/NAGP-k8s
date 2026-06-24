@@ -344,6 +344,77 @@ hpa.yaml
 
 &#x20;
 
+## Justification for the Resources Utilized
+ 
+### Service API Tier
+ 
+**Technology Used**
+- .NET 8 Web API
+- Kubernetes Deployment
+- Docker
+ 
+**Resource Configuration**
+ 
+| Resource | Value |
+|----------|-------|
+| CPU Request | 50m |
+| CPU Limit | 150m |
+| Memory Request | 64Mi |
+| Memory Limit | 128Mi |
+ 
+**Justification**
+- Resource requests guarantee minimum compute resources for stable execution.
+- Resource limits prevent excessive resource consumption.
+- Values were optimized after observing pod scheduling and CPU utilization.
+- Horizontal Pod Autoscaler (HPA) scales automatically based on demand.
+- Rolling updates ensure application availability during deployments.
+ 
+---
+ 
+### Database Tier
+ 
+**Technology Used**
+- PostgreSQL
+- Kubernetes StatefulSet
+- Persistent Volume Claim (PVC)
+ 
+**Storage**
+ 
+| Resource | Value |
+|----------|-------|
+| Persistent Volume | 2Gi |
+ 
+**Justification**
+- StatefulSet provides stable identity and recovery for database workloads.
+- Persistent storage ensures records remain available after pod recreation.
+- Database is exposed internally using ClusterIP to improve security and reduce infrastructure cost.
+- Single replica satisfies assignment workload requirements.
+ 
+---
+ 
+### Configuration and Security
+ 
+**Configuration**
+- Database configuration is externalized using Kubernetes ConfigMap.
+ 
+**Secrets**
+- Database credentials are managed using Kubernetes Secret.
+ 
+**Justification**
+- Configuration remains independent from application code.
+- Sensitive values are not stored directly in source code or deployment YAML files.
+ 
+---
+ 
+### FinOps Considerations
+ 
+Implemented optimizations:
+ 
+1. Configured CPU and memory requests and limits.
+2. Enabled Horizontal Pod Autoscaler (HPA).
+3. Used ClusterIP for internal database communication.
+4. Optimized resources based on observed runtime utilization.
+
 \# Deployment
 
 &#x20;
